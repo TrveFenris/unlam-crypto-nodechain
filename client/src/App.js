@@ -2,14 +2,11 @@ import React, { Component } from 'react'
 import logo from './rust-logo.png'
 import './App.css'
 import axios from 'axios'
-import { Grid, Button } from '@material-ui/core'
+import { Grid, Button, Select, MenuItem } from '@material-ui/core'
 import requests from './config/requests'
 import ports from './config/ports'
 
-const serverAddress = 'http://localhost:1337'
-
 const instance = axios.create({
-  baseURL: serverAddress,
   timeout: 1000,
   headers: {
     'Content-Type': 'application/json',
@@ -29,17 +26,27 @@ class App extends Component {
   }
 
   makeRequest = (requestName, thenFn) => () => {
-    instance
-      .request(requests.get(requestName))
-      .then(thenFn)
-      .catch(() => {
-        this.setState({
-          message: 'Unable to get a response from the server.',
+    const { selectedPort } = this.state
+    if (selectedPort) {
+      const requestConfig = requests.get(requestName)
+      requestConfig['baseURL'] = `http://localhost:${selectedPort}`
+      instance
+        .request(requestConfig)
+        .then(thenFn)
+        .catch(() => {
+          this.setState({
+            message: 'Unable to get a response from the server.',
+          })
         })
-      })
+    }
+  }
+
+  handlePortChange = e => {
+    this.setState({ selectedPort: e.target.value })
   }
 
   render() {
+    const { selectedPort } = this.state
     return (
       <div className="App">
         <div className="App-header">
@@ -50,16 +57,25 @@ class App extends Component {
         </div>
         <div className="App-body">
           <Grid container spacing={3} justify="center" direction="row">
-            <pre style={{ margin: 0 }}>
-              <p>{this.state.message}</p>
-            </pre>
-          </Grid>
-          <Grid container spacing={3} justify="center" direction="row">
-            <select>
-              {ports.map(port => (
-                <option value={port}>{port}</option>
-              ))}
-            </select>
+            <Grid item xs={12} style={{ textAlign: 'center' }}>
+              <pre style={{ margin: 0 }}>
+                <p>{this.state.message}</p>
+              </pre>
+            </Grid>
+            <Grid item xs={12} style={{ textAlign: 'center' }}>
+              <Select
+                value={selectedPort}
+                onChange={this.handlePortChange}
+                variant="filled"
+                style={{ width: 200 }}
+              >
+                {ports.map((port, i) => (
+                  <MenuItem key={`option-${i}`} value={port}>
+                    {port}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Grid>
           </Grid>
         </div>
         <div className="App-body">
@@ -67,7 +83,7 @@ class App extends Component {
             <Grid item>
               <Button
                 variant="contained"
-                onClick={this.makeRequest('blocks', response => {
+                onClick={this.makeRequest('getchain', response => {
                   this.setState({
                     message: JSON.stringify(response.data, null, 2),
                   })
