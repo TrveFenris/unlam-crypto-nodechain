@@ -18,6 +18,7 @@ import {
 import { withStyles } from '@material-ui/core/styles'
 import requests from './config/requests'
 import ports from './config/ports'
+import TransactionForm from './forms/Transaction'
 
 const instance = axios.create({
   timeout: 1000,
@@ -29,6 +30,7 @@ const initState = {
   message: 'Welcome to Nodechain client!',
   availablePorts: [],
   selectedPort: '',
+  isTransactionFormOpen: false,
 }
 
 class App extends Component {
@@ -40,11 +42,14 @@ class App extends Component {
     this.state = initState
   }
 
-  makeRequest = (requestName, thenFn) => () => {
+  makeRequest = (requestName, thenFn, data) => () => {
     const { selectedPort } = this.state
     if (selectedPort) {
       const requestConfig = requests.get(requestName)
       requestConfig['baseURL'] = `http://localhost:${selectedPort}`
+      if (data) {
+        requestConfig['data'] = data
+      }
       instance
         .request(requestConfig)
         .then(thenFn)
@@ -60,9 +65,26 @@ class App extends Component {
     this.setState({ selectedPort: e.target.value })
   }
 
+  handleTransactionSubmit = () => {
+    this.makeRequest('newtransaction', response => {
+      this.setState({ message: response.data })
+    })
+    this.setState({ isTransactionFormOpen: false })
+  }
+
+  handleNodeRegistration = () => {
+    /*
+    this.makeRequest('registernodes', response => {
+      this.setState({
+        message: JSON.stringify(response.data, null, 2),
+      })
+    })
+    */
+  }
+
   render() {
     const { classes } = this.props
-    const { selectedPort } = this.state
+    const { selectedPort, isTransactionFormOpen } = this.state
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -124,49 +146,39 @@ class App extends Component {
             </ListItem>
             <ListItem
               button
-              onClick={this.makeRequest('newtransaction', response => {
-                this.setState({ message: response.data })
-              })}
+              onClick={() => {
+                this.setState({ isTransactionFormOpen: true })
+              }}
             >
               <ListItemText primary={'New Transaction'} />
             </ListItem>
-            <ListItem
-              button
-              onClick={this.makeRequest('', response => {
-                this.setState({
-                  message: JSON.stringify(response.data, null, 2),
-                })
-              })}
-            >
-              <ListItemText primary={''} />
+            <ListItem button onClick={this.handleNodeRegistration}>
+              <ListItemText primary={'Register Nodes'} />
             </ListItem>
             <ListItem
               button
-              onClick={this.makeRequest('', response => {
+              onClick={this.makeRequest('consensus', response => {
                 this.setState({
                   message: JSON.stringify(response.data, null, 2),
                 })
               })}
             >
-              <ListItemText primary={''} />
+              <ListItemText primary={'Resolve Consensus'} />
             </ListItem>
-            <ListItem
-              button
-              onClick={this.makeRequest('', response => {
-                this.setState({
-                  message: JSON.stringify(response.data, null, 2),
-                })
-              })}
-            >
-              <ListItemText primary={''} />
+            <ListItem button>
+              <ListItemText primary={'Hack the Chain!'} />
             </ListItem>
           </List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <pre>
-            <Typography>{this.state.message}</Typography>
-          </pre>
+          {(isTransactionFormOpen && (
+            <TransactionForm onSubmit={this.handleTransactionSubmit} />
+          )) || (
+            <pre>
+              <Typography>{this.state.message}</Typography>
+            </pre>
+          )}
         </main>
       </div>
     )

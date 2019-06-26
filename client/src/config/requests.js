@@ -33,6 +33,20 @@ const requestsArray = [
       },
     },
   ],
+  [
+    'registernodes',
+    {
+      url: 'api/v1/nodes/register',
+      method: 'post',
+    },
+  ],
+  [
+    'consensus',
+    {
+      url: 'api/v1/nodes/consensus',
+      method: 'get',
+    },
+  ],
 ]
 
 const requests = new Map(requestsArray)
