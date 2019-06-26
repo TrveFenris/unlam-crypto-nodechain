@@ -21,7 +21,9 @@ const initState = {
 class App extends Component {
   constructor(props) {
     super(props)
-    document.body.style.backgroundColor = '#282c34'
+    document.body.style.backgroundColor = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue('--main-bg-color')
     this.state = initState
   }
 

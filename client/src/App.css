@@ -1,3 +1,7 @@
+:root {
+  --main-bg-color: #68A063;
+}
+
 .App {
   text-align: center;
   overflow-x: hidden;
@@ -20,7 +24,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: var(--main-bg-color);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,7 +34,7 @@
 }
 
 .App-body {
-  background-color: #282c34;
+  background-color: var(--main-bg-color);
   font-size: calc(10px + 2vmin);
   color: white;
   text-align: left;
