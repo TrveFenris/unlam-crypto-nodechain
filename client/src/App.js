@@ -1,8 +1,21 @@
 import React, { Component } from 'react'
-import logo from './rust-logo.png'
 import './App.css'
+import styles from './styles'
 import axios from 'axios'
-import { Grid, Button, Select, MenuItem } from '@material-ui/core'
+import {
+  Select,
+  MenuItem,
+  Drawer,
+  CssBaseline,
+  AppBar,
+  Toolbar,
+  List,
+  Typography,
+  Divider,
+  ListItem,
+  ListItemText,
+} from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 import requests from './config/requests'
 import ports from './config/ports'
 
@@ -48,23 +61,31 @@ class App extends Component {
   }
 
   render() {
+    const { classes } = this.props
     const { selectedPort } = this.state
     return (
-      <div className="App">
-        <div className="App-header">
-          <div className="App-logo-container">
-            <img src={logo} className="App-logo" alt="logo" />
-            <img src={logo} className="App-logo-2" alt="logo" />
-          </div>
-        </div>
-        <div className="App-body">
-          <Grid container spacing={3} justify="center" direction="row">
-            <Grid item xs={12} style={{ textAlign: 'center' }}>
-              <pre style={{ margin: 0 }}>
-                <p>{this.state.message}</p>
-              </pre>
-            </Grid>
-            <Grid item xs={12} style={{ textAlign: 'center' }}>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar>
+            <Typography variant="h6" noWrap>
+              Nodechain Client
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          className={classes.drawer}
+          variant="permanent"
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          anchor="left"
+        >
+          <div className={classes.toolbar} />
+          <Divider />
+          <List>
+            <ListItem>
+              <Typography>Port</Typography>
               <Select
                 value={selectedPort}
                 onChange={this.handlePortChange}
@@ -77,50 +98,79 @@ class App extends Component {
                   </MenuItem>
                 ))}
               </Select>
-            </Grid>
-          </Grid>
-        </div>
-        <div className="App-body">
-          <Grid container spacing={3} justify="center" direction="row">
-            <Grid item>
-              <Button
-                variant="contained"
-                onClick={this.makeRequest('getchain', response => {
-                  this.setState({
-                    message: JSON.stringify(response.data, null, 2),
-                  })
-                })}
-              >
-                Get Blocks
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                onClick={this.makeRequest('newblock', response => {
-                  this.setState({
-                    message: JSON.stringify(response.data, null, 2),
-                  })
-                })}
-              >
-                New Block
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                onClick={this.makeRequest('newtransaction', response => {
-                  this.setState({ message: response.data })
-                })}
-              >
-                New Transaction
-              </Button>
-            </Grid>
-          </Grid>
-        </div>
+            </ListItem>
+          </List>
+          <Divider />
+          <List>
+            <ListItem
+              button
+              onClick={this.makeRequest('getchain', response => {
+                this.setState({
+                  message: JSON.stringify(response.data, null, 2),
+                })
+              })}
+            >
+              <ListItemText primary={'Get Chain'} />
+            </ListItem>
+            <ListItem
+              button
+              onClick={this.makeRequest('newblock', response => {
+                this.setState({
+                  message: JSON.stringify(response.data, null, 2),
+                })
+              })}
+            >
+              <ListItemText primary={'New Block'} />
+            </ListItem>
+            <ListItem
+              button
+              onClick={this.makeRequest('newtransaction', response => {
+                this.setState({ message: response.data })
+              })}
+            >
+              <ListItemText primary={'New Transaction'} />
+            </ListItem>
+            <ListItem
+              button
+              onClick={this.makeRequest('', response => {
+                this.setState({
+                  message: JSON.stringify(response.data, null, 2),
+                })
+              })}
+            >
+              <ListItemText primary={''} />
+            </ListItem>
+            <ListItem
+              button
+              onClick={this.makeRequest('', response => {
+                this.setState({
+                  message: JSON.stringify(response.data, null, 2),
+                })
+              })}
+            >
+              <ListItemText primary={''} />
+            </ListItem>
+            <ListItem
+              button
+              onClick={this.makeRequest('', response => {
+                this.setState({
+                  message: JSON.stringify(response.data, null, 2),
+                })
+              })}
+            >
+              <ListItemText primary={''} />
+            </ListItem>
+          </List>
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <pre>
+            <Typography>{this.state.message}</Typography>
+          </pre>
+        </main>
       </div>
     )
   }
 }
 
-export default App
+export default withStyles(styles)(App)
