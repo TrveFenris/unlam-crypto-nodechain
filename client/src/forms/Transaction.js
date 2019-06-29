@@ -14,14 +14,34 @@ class ImageUpload extends Component {
     };
     this._handleImageChange = this._handleImageChange.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleTransaction = props.onSubmitTransaction.bind(this); //sacar si no sirve
   }
 
+  /*
+  * Transforms the uploaded file to base64
+  * and submit it to newTransaction as data
+  */
   _handleSubmit(e) {
     e.preventDefault();
-    // TODO: do something with -> this.state.file
-    // like convert to base64
-    // build the transaction data and send it
-    this.props.onSubmitTransaction()
+    let imgBase64 = '';
+    this.getBase64(this.state.file, (result) => {
+      imgBase64 = result;
+      console.log('Base64Img: ', imgBase64);      // hasta aca funciona bien.
+      this.props.onSubmitTransaction(imgBase64);  // TODO se deberia poder llamar asi
+      //this._handleTransaction(imgBase64);       //tampoco funciono
+    });
+
+  }
+
+  getBase64(file, cb) {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      cb(reader.result)
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
   }
 
   _handleImageChange(e) {
