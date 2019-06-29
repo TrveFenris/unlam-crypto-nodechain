@@ -73,13 +73,30 @@ class App extends Component {
   }
 
   handleNodeRegistration = () => {
-    /*
-    this.makeRequest('registernodes', response => {
-      this.setState({
-        message: JSON.stringify(response.data, null, 2),
-      })
+    ports.forEach(port => {
+      const portsArray = ports.slice()
+      const index = portsArray.indexOf(port)
+      index > -1 && portsArray.splice(index, 1)
+      const data = portsArray.map(p => `localhost:${p}`)
+      const requestConfig = {
+        baseURL: `http://localhost:${port}`,
+        url: 'api/v1/nodes/register',
+        method: 'post',
+        data: data,
+      }
+      instance
+        .request(requestConfig)
+        .then(response => {
+          this.setState({
+            message: JSON.stringify(response.data, null, 2),
+          })
+        })
+        .catch(() => {
+          this.setState({
+            message: 'Unable to get a response from the server.',
+          })
+        })
     })
-    */
   }
 
   render() {
@@ -106,6 +123,9 @@ class App extends Component {
           <div className={classes.toolbar} />
           <Divider />
           <List>
+            <ListItem button onClick={this.handleNodeRegistration}>
+              <ListItemText primary={'Register Nodes'} />
+            </ListItem>
             <ListItem>
               <Typography>Port</Typography>
               <Select
@@ -151,9 +171,6 @@ class App extends Component {
               }}
             >
               <ListItemText primary={'New Transaction'} />
-            </ListItem>
-            <ListItem button onClick={this.handleNodeRegistration}>
-              <ListItemText primary={'Register Nodes'} />
             </ListItem>
             <ListItem
               button
