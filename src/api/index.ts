@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express';
+import { RequestHandler, response } from 'express';
 import { Chain, Blockchain } from '../blockdata/Blockchain';
 import { Transaction } from '../blockdata/Transaction';
 
@@ -43,11 +43,6 @@ export const createBlock: RequestHandler = (req, res) => {
   const lastBlock = nodechain.getLastBlock();
   const lastProof = lastBlock.proof;
   const proof = nodechain.proofOfWork(lastProof);
-  nodechain.addTransaction({
-    sender: '0',
-    recipient: 'TBD', // TODO get the recipient address?
-    image: "no image",
-  });
   const newBlock = nodechain.addBlock(proof);
   return res.status(200).send({
     success: 'true',
@@ -56,12 +51,16 @@ export const createBlock: RequestHandler = (req, res) => {
   });
 };
 
-export const resolveConsensus: RequestHandler = async function (req, res) {
-  const isChainReplaced = await nodechain
+export const resolveConsensus: RequestHandler = async function(req, res) {
+  let responseMessage = '';
+  const ourChain = nodechain.getChain();
+  const isOurChainValid = Blockchain.validateChain(ourChain);
+  await nodechain
     .resolveConsensus()
     .then(data => {
       let newChain: Chain | null = null;
-      let maxLength = nodechain.getChain().length;
+      let maxLength = (isOurChainValid && ourChain.length) || 0;
+      console.log('Chain max length: ', maxLength)
       data.map(value => {
         const chain = value.chain;
         if (
@@ -75,18 +74,22 @@ export const resolveConsensus: RequestHandler = async function (req, res) {
       });
       if (newChain) {
         nodechain.replaceChain(newChain);
+        responseMessage = 'Our chain was replaced.';
         return true;
       }
+      responseMessage = 'Our chain is authoritative.';
       return false;
     })
     .catch(reason => {
       console.log('Error during consensus: ', reason);
-      // TODO send an error response
+      responseMessage = `Error during consensus: ${reason}`;
     });
+  if (!isOurChainValid) {
+    console.log('WARNING: Our chain was invalid.');
+    responseMessage = responseMessage + ' WARNING: Our chain was invalid.';
+  }
   res.status(200).send({
-    message: isChainReplaced
-      ? 'Our chain was replaced.'
-      : 'Our chain is authoritative.',
+    message: responseMessage,
     chain: nodechain.getChain(),
   });
 };
@@ -119,7 +122,7 @@ export const hackChainContent: RequestHandler = (req, res) => {
     success: 'true',
     message: 'Blockchain has been pwnd',
   });
-}
+};
 
 export const notFound: RequestHandler = (req, res, next) =>
   res.status(404).send({ message: `Route ${req.url} not found.` });
