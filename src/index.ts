@@ -22,6 +22,7 @@ expressApp
   .get('/api/v1/blocks/new', api.createBlock)
   .post('/api/v1/nodes/register', api.registerNode)
   .get('/api/v1/nodes/consensus', api.resolveConsensus)
+  .post('/api/v1/chain/hack', api.hackChainContent)
   .use(api.notFound);
 // TODO 500 server errors handler
 
