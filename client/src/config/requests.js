@@ -26,11 +26,6 @@ const requestsArray = [
     {
       url: 'api/v1/transactions/new',
       method: 'post',
-      data: {
-        sender: 'REACT-APP',
-        recipient: 'RUSTCHAIN',
-        amount: 1000,
-      },
     },
   ],
   [

@@ -11,8 +11,8 @@ export const createTransaction: RequestHandler = (req, res) => {
     msg = 'Sender is required.';
   } else if (!body.recipient) {
     msg = 'Recipient is required.';
-  } else if (!body.amount) {
-    msg = 'Amount is required.';
+  } else if (!body.image) {
+    msg = 'Image is required.';
   }
   if (msg) {
     return res.status(400).send({
@@ -23,7 +23,7 @@ export const createTransaction: RequestHandler = (req, res) => {
   const tx: Transaction = {
     sender: body.sender,
     recipient: body.recipient,
-    amount: body.amount,
+    image: body.image,
   };
   const blockIndex = nodechain.addTransaction(tx);
   return res.status(200).send({
@@ -46,7 +46,7 @@ export const createBlock: RequestHandler = (req, res) => {
   nodechain.addTransaction({
     sender: '0',
     recipient: 'TBD', // TODO get the recipient address?
-    amount: 1,
+    image: "no image",
   });
   const newBlock = nodechain.addBlock(proof);
   return res.status(200).send({
@@ -56,7 +56,7 @@ export const createBlock: RequestHandler = (req, res) => {
   });
 };
 
-export const resolveConsensus: RequestHandler = async function(req, res) {
+export const resolveConsensus: RequestHandler = async function (req, res) {
   const isChainReplaced = await nodechain
     .resolveConsensus()
     .then(data => {

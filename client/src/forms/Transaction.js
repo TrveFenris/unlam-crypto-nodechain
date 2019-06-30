@@ -1,23 +1,93 @@
-import React from 'react'
-import { Grid, Button } from '@material-ui/core'
+import React, { Component } from 'react'
+import {
+  Grid,
+  Button,
+  Card,
+  CardActions,
+  CardMedia,
+  CardContent,
+  Typography,
+} from '@material-ui/core'
 
 const TransactionForm = ({ onSubmit }) => (
-  <Grid container spacing={2}>
-    <Grid item xs={12}>
-      <input
-        accept="image/*"
-        style={{ display: 'none' }}
-        id="raised-button-file"
-        type="file"
-      />
-      <label htmlFor="raised-button-file">
-        <Button component="span">Upload Image</Button>
-      </label>
-    </Grid>
-    <Grid item xs={12}>
-      <Button onClick={onSubmit}>Submit</Button>
-    </Grid>
-  </Grid>
+  <ImageUpload onSubmitTransaction={onSubmit} />
 )
 
-export default TransactionForm
+class ImageUpload extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      file: '',
+    }
+  }
+
+  /*
+   * Transforms the uploaded file to base64
+   * and submit it to newTransaction as data
+   */
+  handleSubmit = e => {
+    e.preventDefault()
+    const { file } = this.state
+    this.props.onSubmit(file)
+  }
+
+  handleImageChange = e => {
+    e.preventDefault()
+    let reader = new FileReader()
+    let file = e.target.files[0]
+    reader.onloadend = () => {
+      this.setState({
+        file: reader.result,
+      })
+    }
+    reader.readAsDataURL(file)
+  }
+
+  renderImagePreview = () => (
+    <Card style={{ width: '100%' }}>
+      {this.state.file && (
+        <CardMedia
+          style={{ height: 600 }}
+          image={this.state.file}
+          title="Preview"
+        />
+      )}
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="h2">
+          Upload Image
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Grid>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={this.handleImageChange}
+            id="fileInput"
+            style={{ display: 'none' }}
+          />
+        </Grid>
+        <Grid>
+          <label htmlFor="fileInput">
+            <Button component="span" size="small" color="primary">
+              Select Image
+            </Button>
+          </label>
+        </Grid>
+        <Button size="small" color="primary" onClick={this.handleSubmit}>
+          Upload Transaction
+        </Button>
+      </CardActions>
+    </Card>
+  )
+
+  render() {
+    return (
+      <Grid container spacing={1}>
+        {this.renderImagePreview()}
+      </Grid>
+    )
+  }
+}
+
+export default ImageUpload
