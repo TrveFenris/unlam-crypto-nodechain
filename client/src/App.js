@@ -212,17 +212,18 @@ class App extends Component {
                               </Grid>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
-                              {block.transactions.map((tx, j) => (
-                                <Card
-                                  key={`transaction-${j}`}
-                                  style={{ width: '100%' }}
-                                >
-                                  <CardMedia
-                                    style={{ height: 300 }}
-                                    image={tx.image}
-                                  />
-                                </Card>
-                              ))}
+                              <Grid container>
+                                {block.transactions.map((tx, j) => (
+                                  <Grid key={`transaction-${j}`} item xs={4}>
+                                    <Card>
+                                      <CardMedia
+                                        style={{ height: 300 }}
+                                        image={tx.image}
+                                      />
+                                    </Card>
+                                  </Grid>
+                                ))}
+                              </Grid>
                             </ExpansionPanelDetails>
                           </ExpansionPanel>
                         </Grid>
