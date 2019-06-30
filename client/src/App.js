@@ -190,38 +190,45 @@ class App extends Component {
               button
               onClick={this.makeRequest('getchain', response => {
                 this.setState({
-                  message: response.data.chain.map((block, i) => (
-                    <ExpansionPanel
-                      key={`panel-${i}-header`}
-                      style={{ width: 1024 }}
-                    >
-                      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                        <Grid content direction="column">
-                          <Grid item xs>
-                            <Typography>Block {block.header.index}</Typography>
-                          </Grid>
-                          <Grid item xs>
-                            <Typography>
-                              Previous Hash: {block.header.prevBlockHash}
-                            </Typography>
-                          </Grid>
+                  message: (
+                    <Grid container spacing={1}>
+                      {response.data.chain.map((block, i) => (
+                        <Grid item xs={12}>
+                          <ExpansionPanel key={`panel-${i}-header`}>
+                            <ExpansionPanelSummary
+                              expandIcon={<ExpandMoreIcon />}
+                            >
+                              <Grid content direction="column">
+                                <Grid item xs>
+                                  <Typography>
+                                    Block {block.header.index}
+                                  </Typography>
+                                </Grid>
+                                <Grid item xs>
+                                  <Typography>
+                                    Previous Hash: {block.header.prevBlockHash}
+                                  </Typography>
+                                </Grid>
+                              </Grid>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                              {block.transactions.map((tx, j) => (
+                                <Card
+                                  key={`transaction-${j}`}
+                                  style={{ width: '100%' }}
+                                >
+                                  <CardMedia
+                                    style={{ height: 300 }}
+                                    image={tx.image}
+                                  />
+                                </Card>
+                              ))}
+                            </ExpansionPanelDetails>
+                          </ExpansionPanel>
                         </Grid>
-                      </ExpansionPanelSummary>
-                      <ExpansionPanelDetails>
-                        {block.transactions.map((tx, j) => (
-                          <Card
-                            key={`transaction-${j}`}
-                            style={{ width: '100%' }}
-                          >
-                            <CardMedia
-                              style={{ height: 300 }}
-                              image={tx.image}
-                            />
-                          </Card>
-                        ))}
-                      </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                  )),
+                      ))}
+                    </Grid>
+                  ),
                 })
               })}
             >
