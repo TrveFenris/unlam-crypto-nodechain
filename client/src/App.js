@@ -65,11 +65,25 @@ class App extends Component {
     this.setState({ selectedPort: e.target.value })
   }
 
-  handleTransactionSubmit = (requestBody) => () => {
+  handleTransactionSubmit = requestBody => {
+    const data = {
+      sender: requestBody,
+      recipient: 'X',
+      amount: 0,
+    }
     console.log('handleTransaction:', requestBody)
-    this.makeRequest('newtransaction', response => {
-      this.setState({ message: response.data })
-    }, requestBody)
+    this.makeRequest(
+      'newtransaction',
+      response => {
+        console.log('handleTransaction: response')
+        this.setState({ message: response.data })
+      },
+      data
+    )
+    this.handleTransactionClose()
+  }
+
+  handleTransactionClose = () => {
     this.setState({ isTransactionFormOpen: false })
   }
 
@@ -193,10 +207,10 @@ class App extends Component {
           {(isTransactionFormOpen && (
             <TransactionForm onSubmit={this.handleTransactionSubmit} />
           )) || (
-              <pre>
-                <Typography>{this.state.message}</Typography>
-              </pre>
-            )}
+            <pre>
+              <Typography>{this.state.message}</Typography>
+            </pre>
+          )}
         </main>
       </div>
     )
