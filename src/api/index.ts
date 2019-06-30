@@ -113,5 +113,13 @@ export const registerNode: RequestHandler = (req, res) => {
   });
 };
 
+export const hackChainContent: RequestHandler = (req, res) => {
+  nodechain.alterOwnBlocks();
+  return res.status(200).send({
+    success: 'true',
+    message: 'Blockchain has been pwnd',
+  });
+}
+
 export const notFound: RequestHandler = (req, res, next) =>
   res.status(404).send({ message: `Route ${req.url} not found.` });

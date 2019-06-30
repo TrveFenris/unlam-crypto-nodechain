@@ -253,7 +253,12 @@ class App extends Component {
             >
               <ListItemText primary={'Resolve Consensus'} />
             </ListItem>
-            <ListItem button>
+            <ListItem button
+              onClick={this.makeRequest('hack', response => {
+                this.setState({
+                  message: JSON.stringify(response.data, null, 2),
+                })
+              })}>
               <ListItemText primary={'Hack the Chain!'} />
             </ListItem>
           </List>

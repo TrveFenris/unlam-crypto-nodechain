@@ -42,6 +42,13 @@ const requestsArray = [
       method: 'get',
     },
   ],
+  [
+    'hack',
+    {
+      url: 'api/v1/chain/hack',
+      method: 'post',
+    },
+  ],
 ]
 
 const requests = new Map(requestsArray)
