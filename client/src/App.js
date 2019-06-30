@@ -61,18 +61,37 @@ class App extends Component {
     }
   }
 
+  makeRequestAsFn(requestName, thenFn, data) {
+    const { selectedPort } = this.state
+    if (selectedPort) {
+      const requestConfig = requests.get(requestName)
+      requestConfig['baseURL'] = `http://localhost:${selectedPort}`
+      if (data) {
+        requestConfig['data'] = data
+      }
+      instance
+        .request(requestConfig)
+        .then(thenFn)
+        .catch(() => {
+          this.setState({
+            message: 'Unable to get a response from the server.',
+          })
+        })
+    }
+  }
+
   handlePortChange = e => {
     this.setState({ selectedPort: e.target.value })
   }
 
   handleTransactionSubmit = requestBody => {
     const data = {
-      sender: requestBody,
+      sender: "User", //TODO replace with real values
       recipient: 'X',
-      amount: 0,
+      image: requestBody,
     }
-    console.log('handleTransaction:', requestBody)
-    this.makeRequest(
+    console.log('[before makeRequest] handleTransaction:', requestBody)
+    this.makeRequestAsFn(
       'newtransaction',
       response => {
         console.log('handleTransaction: response')
@@ -80,6 +99,7 @@ class App extends Component {
       },
       data
     )
+    console.log('[after makeRequest] handleTransaction:')
     this.handleTransactionClose()
   }
 
@@ -207,10 +227,10 @@ class App extends Component {
           {(isTransactionFormOpen && (
             <TransactionForm onSubmit={this.handleTransactionSubmit} />
           )) || (
-            <pre>
-              <Typography>{this.state.message}</Typography>
-            </pre>
-          )}
+              <pre>
+                <Typography>{this.state.message}</Typography>
+              </pre>
+            )}
         </main>
       </div>
     )

@@ -18,7 +18,6 @@ class ImageUpload extends Component {
     super(props)
     this.state = {
       file: '',
-      //imagePreviewUrl: '',
     }
   }
 
@@ -28,10 +27,7 @@ class ImageUpload extends Component {
    */
   handleSubmit = e => {
     e.preventDefault()
-    const { onSubmit } = this.props
     const { file } = this.state
-    console.log('Base64Img: ', file)
-    console.log({onSubmit})
     this.props.onSubmit(file)
   }
 

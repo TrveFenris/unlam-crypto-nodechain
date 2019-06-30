@@ -1,4 +1,4 @@
-import { Transaction, ImageTransaction } from './Transaction';
+import { Transaction } from './Transaction';
 
 export interface Block {
   header: BlockHeader;

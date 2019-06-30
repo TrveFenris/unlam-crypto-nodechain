@@ -1,4 +1,4 @@
-import { Transaction, ImageTransaction } from './Transaction';
+import { Transaction } from './Transaction';
 import { Block } from './Block';
 import { sha256 } from 'js-sha256';
 import fetch from 'node-fetch';
