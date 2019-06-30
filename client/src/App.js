@@ -90,7 +90,6 @@ class App extends Component {
       recipient: 'X',
       image: requestBody,
     }
-    console.log('[before makeRequest] handleTransaction:', requestBody)
     this.makeRequestAsFn(
       'newtransaction',
       response => {
@@ -99,7 +98,6 @@ class App extends Component {
       },
       data
     )
-    console.log('[after makeRequest] handleTransaction:')
     this.handleTransactionClose()
   }
 
