@@ -3,6 +3,7 @@ import './App.css'
 import styles from './styles'
 import axios from 'axios'
 import {
+  Grid,
   Select,
   MenuItem,
   Drawer,
@@ -14,8 +15,14 @@ import {
   Divider,
   ListItem,
   ListItemText,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
+  Card,
+  CardMedia,
 } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import requests from './config/requests'
 import ports from './config/ports'
 import TransactionForm from './forms/Transaction'
@@ -86,15 +93,15 @@ class App extends Component {
 
   handleTransactionSubmit = requestBody => {
     const data = {
-      sender: "User", //TODO replace with real values
+      sender: 'User', //TODO replace with real values
       recipient: 'X',
       image: requestBody,
     }
     this.makeRequestAsFn(
       'newtransaction',
       response => {
-        console.log('handleTransaction: response')
-        this.setState({ message: response.data })
+        console.log('handleTransaction: response ', response.data)
+        this.setState({ message: response.data.message })
       },
       data
     )
@@ -121,7 +128,7 @@ class App extends Component {
         .request(requestConfig)
         .then(response => {
           this.setState({
-            message: JSON.stringify(response.data, null, 2),
+            message: JSON.stringify(response.data.message, null, 2),
           })
         })
         .catch(() => {
@@ -181,7 +188,38 @@ class App extends Component {
               button
               onClick={this.makeRequest('getchain', response => {
                 this.setState({
-                  message: JSON.stringify(response.data, null, 2),
+                  message: response.data.chain.map((block, i) => (
+                    <ExpansionPanel
+                      key={`panel-${i}-header`}
+                      style={{ width: 1024 }}
+                    >
+                      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                        <Grid content direction="column">
+                          <Grid item xs>
+                            <Typography>Block {block.header.index}</Typography>
+                          </Grid>
+                          <Grid item xs>
+                            <Typography>
+                              Previous Hash: {block.header.prevBlockHash}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </ExpansionPanelSummary>
+                      <ExpansionPanelDetails>
+                        {block.transactions.map((tx, j) => (
+                          <Card
+                            key={`transaction-${j}`}
+                            style={{ width: '100%' }}
+                          >
+                            <CardMedia
+                              style={{ height: 300 }}
+                              image={tx.image}
+                            />
+                          </Card>
+                        ))}
+                      </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                  )),
                 })
               })}
             >
@@ -191,7 +229,7 @@ class App extends Component {
               button
               onClick={this.makeRequest('newblock', response => {
                 this.setState({
-                  message: JSON.stringify(response.data, null, 2),
+                  message: JSON.stringify(response.data.message, null, 2),
                 })
               })}
             >
@@ -209,7 +247,7 @@ class App extends Component {
               button
               onClick={this.makeRequest('consensus', response => {
                 this.setState({
-                  message: JSON.stringify(response.data, null, 2),
+                  message: JSON.stringify(response.data.message, null, 2),
                 })
               })}
             >
@@ -224,11 +262,8 @@ class App extends Component {
           <div className={classes.toolbar} />
           {(isTransactionFormOpen && (
             <TransactionForm onSubmit={this.handleTransactionSubmit} />
-          )) || (
-              <pre>
-                <Typography>{this.state.message}</Typography>
-              </pre>
-            )}
+          )) ||
+            this.state.message}
         </main>
       </div>
     )
