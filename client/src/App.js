@@ -193,12 +193,12 @@ class App extends Component {
                   message: (
                     <Grid container spacing={1}>
                       {response.data.chain.map((block, i) => (
-                        <Grid item xs={12}>
-                          <ExpansionPanel key={`panel-${i}-header`}>
+                        <Grid key={`block-grid-item-${i}`} item xs={12}>
+                          <ExpansionPanel >
                             <ExpansionPanelSummary
                               expandIcon={<ExpandMoreIcon />}
                             >
-                              <Grid content direction="column">
+                              <Grid container direction="column">
                                 <Grid item xs>
                                   <Typography>
                                     Block {block.header.index}
