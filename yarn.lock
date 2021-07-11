@@ -2312,25 +2312,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express-serve-static-core@npm:*":
-  version: 4.16.7
-  resolution: "@types/express-serve-static-core@npm:4.16.7"
+"@types/express-serve-static-core@npm:*, @types/express-serve-static-core@npm:^4.17.18":
+  version: 4.17.24
+  resolution: "@types/express-serve-static-core@npm:4.17.24"
   dependencies:
     "@types/node": "*"
+    "@types/qs": "*"
     "@types/range-parser": "*"
-  checksum: 7a69c9a3e73a9d7414c79ae03a89c5e5f3fb4ee3520517680ebd043e5005e434eddadac0ad95708ae5705b421fc0eff9010410db07e4ce40e5cd376a3ec8d6ca
+  checksum: 30fc9b62a7cc52fa320fbdf11510b20d91c1aa55d99d90ecb51708b9178aa670f2aaa94eed01f68a96a1a80b3575f1143c0cb23b0e69d60070d6d6d42e40b62a
   languageName: node
   linkType: hard
 
-"@types/express@npm:^4.17.6":
-  version: 4.17.6
-  resolution: "@types/express@npm:4.17.6"
+"@types/express@npm:4.17.13":
+  version: 4.17.13
+  resolution: "@types/express@npm:4.17.13"
   dependencies:
     "@types/body-parser": "*"
-    "@types/express-serve-static-core": "*"
+    "@types/express-serve-static-core": ^4.17.18
     "@types/qs": "*"
     "@types/serve-static": "*"
-  checksum: 45e31c66a048bfb8ddfb28f9c7f448f89eb8667132dc13f0e35397d5e4df05796f920a114bb774ba910bb3795a18d17a3ea8ae6aaf4d0d2e6b6c5622866f21d0
+  checksum: 9f17da703df21e3f1cee2fe1864b9fcac2ab07c37382b972a194a3a484b41c1fbe4022b6cfe546f0171fd2d93b324dd3839512494f4cba639c2afa021e6dbb12
   languageName: node
   linkType: hard
 
@@ -6393,7 +6394,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:^4.17.1":
+"express@npm:4.17.1, express@npm:^4.17.1":
   version: 4.17.1
   resolution: "express@npm:4.17.1"
   dependencies:
@@ -15138,10 +15139,10 @@ typescript@3.5.2:
     "@babel/node": 7.14.7
     "@babel/preset-env": 7.14.7
     "@types/cors": 2.8.12
-    "@types/express": ^4.17.6
+    "@types/express": 4.17.13
     "@types/node-fetch": ^2.5.7
     cors: 2.8.5
-    express: ^4.17.1
+    express: 4.17.1
     js-sha256: ^0.9.0
     node-fetch: ^2.6.1
     nodemon: ^2.0.3
