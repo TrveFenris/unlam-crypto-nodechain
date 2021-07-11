@@ -9056,7 +9056,7 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"js-sha256@npm:^0.9.0":
+"js-sha256@npm:0.9.0":
   version: 0.9.0
   resolution: "js-sha256@npm:0.9.0"
   checksum: 0bef2c83a7bceb2c54ea580fac3c69b5b5c422f590a0c514f6a9440a1c809359514d0ad5f0be52b95e0dd929c348b9f8153b9c1d5b0fa9bcf56b800791e304fb
@@ -15143,7 +15143,7 @@ typescript@3.5.2:
     "@types/node-fetch": 2.5.11
     cors: 2.8.5
     express: 4.17.1
-    js-sha256: ^0.9.0
+    js-sha256: 0.9.0
     node-fetch: 2.6.1
     nodemon: ^2.0.3
   languageName: unknown
