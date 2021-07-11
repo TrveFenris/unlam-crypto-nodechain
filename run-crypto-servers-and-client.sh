@@ -1,7 +1,6 @@
 #!/bin/bash
 
 location="/Users/cmorales/Repositories/unlam-crypto-nodechain"
-client_location="packages/client"
 ports="1337,1338,1339"
 
 IFS=',';for port in $ports

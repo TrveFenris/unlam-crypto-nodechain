@@ -1,6 +1,4 @@
 @echo off
-set client_location=packages/client
-set server_location=packages/server
 set ports=1337,1338,1339
 
 for %%a in ("%ports:,=" "%") do (
@@ -13,6 +11,3 @@ IF NOT %ERRORLEVEL% equ 0 (
 ) ELSE (
    exit
 )
-
-
-
