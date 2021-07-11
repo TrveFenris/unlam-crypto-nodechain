@@ -8,6 +8,6 @@
     "server": "yarn workspace unlam-crypto-nodechain"
   },
   "devDependencies": {
-    "typescript": "3.5.2"
+    "typescript": "4.2.4"
   }
 }
