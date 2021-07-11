@@ -21,5 +21,5 @@ if netstat -anp tcp|grep -q "127.0.0.1:3000"
 then
     echo "netstat -anp tcp|grep -q '127.0.0.1:3000' [TRUE]" 
 else 
-   echo export default [$ports] > $client_location/src/config/ports.js && yarn client start
+   yarn client start
 fi

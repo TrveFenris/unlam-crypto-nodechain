@@ -1,1 +1,1 @@
-export default [1337,1338,1339]  
+export default [1337, 1338, 1339];
