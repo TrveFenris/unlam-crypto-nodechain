@@ -10501,9 +10501,9 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"nodemon@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "nodemon@npm:2.0.3"
+"nodemon@npm:2.0.12":
+  version: 2.0.12
+  resolution: "nodemon@npm:2.0.12"
   dependencies:
     chokidar: ^3.2.2
     debug: ^3.2.6
@@ -10513,11 +10513,11 @@ fsevents@~2.3.2:
     semver: ^5.7.1
     supports-color: ^5.5.0
     touch: ^3.1.0
-    undefsafe: ^2.0.2
-    update-notifier: ^4.0.0
+    undefsafe: ^2.0.3
+    update-notifier: ^4.1.0
   bin:
     nodemon: bin/nodemon.js
-  checksum: 3c6edb9ecb6e9f51dcfa13a8f4afe3b119738e8bad684128be7576f1cf239a8d202142421681adf6172cbab898021c4beebc9d91279449f6db796cc94b65042a
+  checksum: 8a866e2a25043e88615c223ccd601092e181f9c4edbe2027f0e59fc881647ffb2be9fac280f5d2d851564242cd8aa55a288fb1ae8c6609a0013d375b5647b656
   languageName: node
   linkType: hard
 
@@ -15017,12 +15017,12 @@ typescript@3.5.2:
   languageName: node
   linkType: hard
 
-"undefsafe@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "undefsafe@npm:2.0.2"
+"undefsafe@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "undefsafe@npm:2.0.3"
   dependencies:
     debug: ^2.2.0
-  checksum: 44d1e64632e79d0166ab78bc8e86bebce0391445255840e5f5569114bd48028e16957ecd01fdcf6e7dc6b0db136775f039e5b0771f57027f6eb511c5042a45a6
+  checksum: 0974f82a8750c3c247d5a9cf7fe91279d1fad0069dda7b717937e7960addddedf2ddabe3ffb1f504929acd0c924ef654c5c85185aee4c514a0fbf2e2a4efcf39
   languageName: node
   linkType: hard
 
@@ -15145,7 +15145,7 @@ typescript@3.5.2:
     express: 4.17.1
     js-sha256: 0.9.0
     node-fetch: 2.6.1
-    nodemon: ^2.0.3
+    nodemon: 2.0.12
   languageName: unknown
   linkType: soft
 
@@ -15180,9 +15180,9 @@ typescript@3.5.2:
   languageName: node
   linkType: hard
 
-"update-notifier@npm:^4.0.0":
-  version: 4.1.0
-  resolution: "update-notifier@npm:4.1.0"
+"update-notifier@npm:^4.1.0":
+  version: 4.1.3
+  resolution: "update-notifier@npm:4.1.3"
   dependencies:
     boxen: ^4.2.0
     chalk: ^3.0.0
@@ -15197,7 +15197,7 @@ typescript@3.5.2:
     pupa: ^2.0.1
     semver-diff: ^3.1.1
     xdg-basedir: ^4.0.0
-  checksum: 2d35bb8785da43c247c5c7b7734c50c040378de61569afbfc22681b46066240ccdf717b38a62483926f6452f26a547418768627a2f0dede70ca6f4f0b5c78309
+  checksum: 90362dcdf349651f92cffc6b9c1dfe6cb1035c1af3e4952316800d7aa05e98ba7bd291edd315aa215ce3f9b4b246f1fc2489a25c85c6fee8bdd0163731b3e1fa
   languageName: node
   linkType: hard
 
