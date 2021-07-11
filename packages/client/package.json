@@ -1,5 +1,5 @@
 {
-  "name": "unlam-crypto-rustchain-client",
+  "name": "unlam-crypto-nodechain-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -1,32 +1,13 @@
 {
-  "name": "unlam-crypto-nodechain",
-  "version": "1.0.0",
-  "main": "dist/index.js",
-  "license": "MIT",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "js-sha256": "^0.9.0",
-    "node-fetch": "^2.6.1"
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "client": "yarn workspace unlam-crypto-nodechain-client",
+    "server": "yarn workspace unlam-crypto-nodechain"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
-    "@babel/node": "^7.8.7",
-    "@babel/preset-env": "^7.9.5",
-    "@types/cors": "^2.8.6",
-    "@types/express": "^4.17.6",
-    "@types/node-fetch": "^2.5.7",
-    "nodemon": "^2.0.3",
-    "typescript": "^3.5.2"
-  },
-  "scripts": {
-    "build": "tsc",
-    "prestart": "yarn run build",
-    "start": "node .",
-    "start2": "node_modules/.bin/nodemon . --exec babel-node --",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "description": ""
+    "typescript": "3.5.2"
+  }
 }
