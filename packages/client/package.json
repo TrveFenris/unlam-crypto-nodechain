@@ -1,14 +1,14 @@
 {
-  "name": "unlam-crypto-rustchain-client",
+  "name": "unlam-crypto-nodechain-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.9.12",
-    "@material-ui/icons": "^4.9.1",
-    "axios": "^0.21.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "@material-ui/core": "4.12.1",
+    "@material-ui/icons": "4.11.2",
+    "axios": "0.21.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-scripts": "4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
