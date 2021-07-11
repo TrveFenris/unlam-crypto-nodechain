@@ -1911,7 +1911,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/core@npm:^4.9.12":
+"@material-ui/core@npm:4.12.1":
   version: 4.12.1
   resolution: "@material-ui/core@npm:4.12.1"
   dependencies:
@@ -1938,7 +1938,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/icons@npm:^4.9.1":
+"@material-ui/icons@npm:4.11.2":
   version: 4.11.2
   resolution: "@material-ui/icons@npm:4.11.2"
   dependencies:
@@ -15121,8 +15121,8 @@ typescript@3.5.2:
   version: 0.0.0-use.local
   resolution: "unlam-crypto-nodechain-client@workspace:packages/client"
   dependencies:
-    "@material-ui/core": ^4.9.12
-    "@material-ui/icons": ^4.9.1
+    "@material-ui/core": 4.12.1
+    "@material-ui/icons": 4.11.2
     axios: 0.21.1
     react: ^16.13.1
     react-dom: ^16.13.1
